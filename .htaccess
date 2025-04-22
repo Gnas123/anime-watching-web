@@ -1,0 +1,26 @@
+RewriteEngine On
+Options -Indexes
+
+# Ensure mod_rewrite is enabled
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect all requests to doantansang.com while preserving subpaths
+# RewriteCond %{HTTP_HOST} ^localhost$
+# RewriteCond %{REQUEST_URI} ^/website(/.*)?$
+# RewriteRule ^website(/.*)?$ https://doantansang.com$1 [R=301,L]
+
+# Redirect root URL to index.php
+RewriteRule ^$ index.php [L,QSA]
+
+
+# Clean URL for anime, replacing `page_type=anime`
+# RewriteRule ^anime$ index.php?page_type=anime [L,QSA]
+
+# Generic rule for dynamic mapping of -htaccess to page_type
+# RewriteRule ^([a-zA-Z0-9]+)123$ ?page_type=$1 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_]+)$ ?page_type=$1 [L,QSA]
+# RewriteRule ^anime-([a-zA-Z0-9_]+)$ ?page_type=anime$search_zone=$1 [L,QSA]
+
+# Dynamic routing for numerical paths like /14
+# RewriteRule ^([0-9]+)$ CV_$1.php [L,QSA]
